@@ -1,0 +1,76 @@
+/* style.css */
+:root {
+    --bg-main: #f8fafc;
+    --bg-card: #ffffff;
+    --text-primary: #1e293b;
+    --text-secondary: #64748b;
+    --brand-primary: #0ea5e9;
+    --brand-secondary: #e0f2fe;
+    --line: #e2e8f0;
+    --danger: #ef4444; /* Red for danger/clear actions */
+    --danger-hover: #dc2626; /* Darker red on hover */
+    --font-family: 'Sarabun', system-ui, sans-serif;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+    background-color: var(--bg-main);
+    font-family: var(--font-family);
+    font-size: 15px;
+    line-height: 1.6;
+    color: var(--text-primary);
+    -webkit-font-smoothing: antialiased;
+}
+.container { max-width: 1600px; margin: 0 auto; padding: 2rem; }
+header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem; flex-wrap: wrap; gap: 1rem; }
+header h1 { font-size: 1.75rem; font-weight: 600; }
+header p { color: var(--text-secondary); }
+.card { background-color: var(--bg-card); border: 1px solid var(--line); border-radius: 12px; padding: 1.5rem; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05); }
+.tabs { display: flex; gap: 1rem; border-bottom: 1px solid var(--line); margin-bottom: 1.5rem; }
+.tab { border: none; background-color: transparent; color: var(--text-secondary); padding: 0 0.25rem 0.75rem; cursor: pointer; font-weight: 600; font-size: 1rem; transition: all 0.2s ease; border-bottom: 2px solid transparent; }
+.tab.active, .tab:hover { color: var(--brand-primary); border-bottom-color: var(--brand-primary); }
+.toolbar { display: flex; flex-direction: column; gap: 1rem; margin-bottom: 1rem; }
+.search-row { width: 100%; }
+.search-wrapper { position: relative; width: 100%; }
+.search-icon { position: absolute; left: 12px; top: 50%; transform: translateY(-50%); color: var(--text-secondary); }
+#search-input { width: 100%; padding: 0.6rem 1rem 0.6rem 2.5rem; border-radius: 8px; border: 1px solid var(--line); font-size: 1rem; }
+.filter-row { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 0.75rem; width: 100%; }
+.filter-row select, .filter-row .btn { width: 100%; padding: 0.6rem 1rem; border-radius: 8px; border: 1px solid var(--line); background-color: #fff; }
+.filter-row select { -webkit-appearance: none; appearance: none; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3E%3Cpath stroke='%2364748b' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='m6 8 4 4 4-4'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 0.5rem center; padding-right: 2.5rem; }
+.meta-toolbar { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem; margin-bottom: 1rem; font-size: 0.9rem; color: var(--text-secondary); }
+.btn-link { background: none; border: none; color: var(--brand-primary); cursor: pointer; text-decoration: underline; font-family: inherit; font-size: inherit; }
+.btn { display: inline-flex; align-items: center; justify-content: center; gap: 0.5rem; border-radius: 8px; padding: 0.6rem 1.2rem; cursor: pointer; font-weight: 600; transition: all 0.2s ease; border: 1px solid transparent; }
+.btn .icon { font-size: 1.1em; }
+.btn.primary { background-color: var(--brand-primary); color: #fff; }
+.btn.primary:hover { background-color: #0284c7; }
+.btn.secondary { border-color: var(--line); background-color: #fff; color: var(--text-primary); }
+.btn.secondary:hover { background-color: var(--bg-main); }
+/* --- NEW & IMPROVED DANGER/CLEAR BUTTON STYLE --- */
+.btn.danger { background-color: var(--danger); border-color: var(--danger); color: #fff; }
+.btn.danger:hover { background-color: var(--danger-hover); border-color: var(--danger-hover); }
+/* ----------------------------------------------- */
+.table-wrapper { overflow-x: auto; position: relative; min-height: 200px; }
+table { width: 100%; border-collapse: collapse; font-size: 0.9rem; }
+th, td { padding: 0.75rem 1rem; border-bottom: 1px solid var(--line); text-align: left; white-space: nowrap; vertical-align: middle; }
+thead { background-color: var(--bg-main); color: var(--text-secondary); font-weight: 600; font-size: 0.8rem; text-transform: uppercase; }
+td .btn-action { background: none; border: none; cursor: pointer; padding: 0.25rem; font-size: 1.1em; }
+dialog { position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); border: 1px solid var(--line); border-radius: 12px; box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1); width: min(800px, 90vw); max-height: 90vh; padding: 2rem; animation: fadeIn 0.3s ease; overflow-y: auto; }
+dialog[open] { display: flex; flex-direction: column; }
+dialog::backdrop { background: rgba(0,0,0,0.3); backdrop-filter: blur(4px); }
+dialog h3 { margin: 0 0 1.5rem; font-size: 1.25rem; font-weight: 600; }
+.form-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1rem; }
+label { display: block; font-size: 0.9rem; font-weight: 500; margin-bottom: 0.25rem; }
+input, select, textarea { width: 100%; padding: 0.6rem; border: 1px solid var(--line); border-radius: 8px; }
+textarea { min-height: 80px; }
+.dialog-actions { display: flex; justify-content: flex-end; gap: 0.75rem; margin-top: 1.5rem; border-top: 1px solid var(--line); padding-top: 1.5rem; }
+.loader-overlay { position: fixed; inset: 0; background: rgba(255, 255, 255, 0.8); backdrop-filter: blur(4px); display: flex; justify-content: center; align-items: center; z-index: 9999; opacity: 0; pointer-events: none; transition: opacity 0.3s ease; }
+.loader-overlay.active { opacity: 1; pointer-events: auto; }
+.loader-content { text-align: center; }
+.loader-spinner { border: 5px solid var(--brand-secondary); border-top: 5px solid var(--brand-primary); border-radius: 50%; width: 50px; height: 50px; animation: spin 1s linear infinite; margin: 0 auto 1rem; }
+#loader-text { font-weight: 600; font-size: 1rem; color: var(--text-primary); }
+@keyframes fadeIn { from { opacity: 0; transform: translate(-50%, -48%); } to { opacity: 1; transform: translate(-50%, -50%); } }
+@keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+@media (max-width: 768px) {
+    .container { padding: 1rem; }
+    header { flex-direction: column; align-items: flex-start; }
+    .meta-toolbar { flex-direction: column; align-items: flex-start; }
+}
