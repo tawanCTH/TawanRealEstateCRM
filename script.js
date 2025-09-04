@@ -12,7 +12,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 price: { label: 'ราคา (บาท)', type: 'number' },
                 ownerName: { label: 'ชื่อเจ้าของ', type: 'text', required: true, searchable: true },
                 phone: { label: 'เบอร์โทร', type: 'tel', searchable: true },
-                assignedTo: { label: 'ผู้รับผิดชอบ', type: 'select', options: ['พี่เอก', 'ข้าวจ้าว', 'ฟลุ๊ค', 'พี่โอ'], filterable: true, defaultText: 'ทุกคน' },
+                assignedTo: { label: 'ผู้รับผิดชอบ', type: 'select', options: ['พี่เอก', 'ข้าวจ้าว', 'ฟลุ๊ค', 'พี่โอ', 'เน็ท'], filterable: true, defaultText: 'ทุกคน' },
                 status: { label: 'สถานะ', type: 'select', options: ['ใหม่', 'ติดต่อแล้ว', 'นัดชม', 'ต่อรอง', 'ปิดดีล', 'ไม่สนใจ'], filterable: true, defaultText: 'ทุกสถานะ' },
                 details: { label: 'รายละเอียดเพิ่มเติม', type: 'textarea' }
             }
@@ -25,7 +25,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 clientName: { label: 'ชื่อลูกค้า', type: 'text', required: true, searchable: true },
                 phone: { label: 'เบอร์โทร', type: 'tel', searchable: true },
                 propertyType: { label: 'ประเภททรัพย์ที่สนใจ', type: 'select', options: ['บ้าน', 'ที่ดิน', 'คอนโด', 'ทาวน์โฮม', 'อื่นๆ'], filterable: true, defaultText: 'ทุกประเภท' },
-                assignedTo: { label: 'ผู้รับผิดชอบ', type: 'select', options: ['พี่เอก', 'ข้าวจ้าว', 'ฟลุ๊ค', 'พี่โอ'], filterable: true, defaultText: 'ทุกคน' },
+                assignedTo: { label: 'ผู้รับผิดชอบ', type: 'select', options: ['พี่เอก', 'ข้าวจ้าว', 'ฟลุ๊ค', 'พี่โอ', 'เน็ท'], filterable: true, defaultText: 'ทุกคน' },
                 status: { label: 'สถานะ', type: 'select', options: ['ใหม่', 'ติดต่อแล้ว', 'นัดชม', 'ต่อรอง', 'ปิดดีล', 'ไม่สนใจ'], filterable: true, defaultText: 'ทุกสถานะ' },
                 details: { label: 'รายละเอียดอื่นๆ', type: 'textarea' } // Added this line
             }
