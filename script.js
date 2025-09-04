@@ -1,11 +1,11 @@
 document.addEventListener('DOMContentLoaded', () => {
     // --- CONFIGURATION ---
-    const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbwtkKj-G8hm2oPM8SOHd8dEBgiOPqoIvVBUVtSuNElXlGWIclVrannJ06iuWoeDg2lL/exec"; // ❗️❗️❗️ ใส่ URL ของคุณที่นี่
+    const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbxBnqUwqXwIt0L75dQvUWZixUQMRUo7nap4ZaLEKz8yE4ww2o_DM3sOsny0LdKKZv7i/exec"; // ❗️❗️❗️ ใส่ URL ของคุณที่นี่
     const POLL_MS = 300000; // 5 นาที
 
     const sheetConfig = {
         'Consignment': {
-            headers: ['id','lastUpdated','ประเภท', 'ทำเล', 'ราคา', 'เจ้าของ', 'เบอร์โทร', 'ผู้รับผิดชอบ', 'สถานะ', 'จัดการ'],
+            headers: ['id','lastUpdated','ประเภท', 'ทำเล', 'ราคา', 'เจ้าของ', 'เบอร์โทร', 'ผู้รับผิดชอบ', 'สถานะ', 'รายละเอียด', 'จัดการ'],
             fields: {
                 propertyType: { label: 'ประเภททรัพย์', type: 'select', options: ['บ้าน', 'ที่ดิน', 'คอนโด', 'ทาวน์โฮม', 'อื่นๆ'], filterable: true, defaultText: 'ทุกประเภท' },
                 location: { label: 'สถานที่ตั้ง/ทำเล', type: 'text', searchable: true },
@@ -18,7 +18,8 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         },
         'CustomerNeeds': {
-            headers: ['id','lastUpdated','ความต้องการ', 'ชื่อลูกค้า', 'เบอร์โทร', 'ประเภททรัพย์', 'ผู้รับผิดชอบ', 'สถานะ', 'จัดการ'],
+            // --- UPDATED THIS SECTION ---
+            headers: ['id','lastUpdated','ความต้องการ', 'ชื่อลูกค้า', 'เบอร์โทร', 'ประเภททรัพย์', 'ผู้รับผิดชอบ', 'สถานะ', 'รายละเอียด', 'จัดการ'],
             fields: {
                 requirement: { label: 'ความต้องการของลูกค้า', type: 'select', options: ['ต้องการซื้อ', 'ปรึกษา', 'ติดตามเอกสาร', 'เตรียมยื่นกู้', 'ฝากขายทรัพย์'], filterable: true, defaultText: 'ทุกความต้องการ' },
                 clientName: { label: 'ชื่อลูกค้า', type: 'text', required: true, searchable: true },
@@ -26,6 +27,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 propertyType: { label: 'ประเภททรัพย์ที่สนใจ', type: 'select', options: ['บ้าน', 'ที่ดิน', 'คอนโด', 'ทาวน์โฮม', 'อื่นๆ'], filterable: true, defaultText: 'ทุกประเภท' },
                 assignedTo: { label: 'ผู้รับผิดชอบ', type: 'select', options: ['พี่เอก', 'ข้าวจ้าว', 'ฟลุ๊ค', 'พี่โอ'], filterable: true, defaultText: 'ทุกคน' },
                 status: { label: 'สถานะ', type: 'select', options: ['ใหม่', 'ติดต่อแล้ว', 'นัดชม', 'ต่อรอง', 'ปิดดีล', 'ไม่สนใจ'], filterable: true, defaultText: 'ทุกสถานะ' },
+                details: { label: 'รายละเอียดอื่นๆ', type: 'textarea' } // Added this line
             }
         }
     };
@@ -145,28 +147,23 @@ document.addEventListener('DOMContentLoaded', () => {
         dom.metaInfo.textContent = `แสดง ${itemsToRender.length} จากทั้งหมด ${allItems.length} รายการ`;
     }
 
-    // --- REVISED SETUP FILTERS FUNCTION ---
     function setupFilters() {
         dom.filterWrapper.innerHTML = '';
         const config = sheetConfig[activeSheet];
         Object.entries(config.fields).forEach(([key, fieldConfig]) => {
             if (fieldConfig.filterable) {
                 const select = document.createElement('select');
-                select.id = `filter-${key}`;
                 select.innerHTML = `<option value="All">${fieldConfig.defaultText}</option>${fieldConfig.options.map(opt => `<option value="${opt}">${opt}</option>`).join('')}`;
                 select.addEventListener('change', e => { filters[key] = e.target.value; applyFiltersAndRender(); });
                 dom.filterWrapper.appendChild(select);
             }
         });
-
-        // Create and append the new styled clear button
         const clearButton = document.createElement('button');
-        clearButton.className = 'btn danger'; // Use danger class for styling
-        clearButton.innerHTML = `<span class="icon">❌</span> ล้างค่า`; // Add icon and text
+        clearButton.className = 'btn danger';
+        clearButton.innerHTML = `<span class="icon">❌</span> ล้างค่า`;
         clearButton.onclick = clearFilters;
         dom.filterWrapper.appendChild(clearButton);
     }
-    // ------------------------------------
 
     async function fetchAndRender(isManualRefresh = false) {
         if (isManualRefresh) showLoader("กำลังรีเฟรชข้อมูล...");
