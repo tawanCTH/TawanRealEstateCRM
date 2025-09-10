@@ -265,7 +265,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function initialize() {
         switchTab('Consignment');
-        setInterval(fetchAndRender, POLL_MS);
+        // setInterval(fetchAndRender, POLL_MS);
     }
     initialize();
+
 });
